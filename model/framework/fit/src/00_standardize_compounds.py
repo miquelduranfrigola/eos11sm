@@ -93,3 +93,35 @@ with open(os.path.join(root, "..", "results", "00_abx_compounds.csv"), "w") as f
     writer.writerow(["smiles", "inchikey"])
     for ik, smi in ik2smi.items():
         writer.writerow([smi, ik])
+
+
+with open(os.path.join(root, "..", "data", "chembl_36_chemreps.txt"), "r") as f:
+    reader = csv.reader(f, delimiter="\t")
+    next(reader)
+    neg_smiles_list = []
+    neg_inchikey_list = []
+    for i, row in tqdm(enumerate(reader)):
+        smiles = row[1]
+        std_smiles, std_inchikey = preprocess(smiles)
+        if std_inchikey in ik2smi:
+            continue
+        if std_smiles is not None:
+            mol = Chem.MolFromSmiles(std_smiles)
+            mw = Descriptors.MolWt(mol)
+            if 100 <= mw <= 1500:
+                neg_smiles_list.append(std_smiles)
+                neg_inchikey_list.append(std_inchikey)
+            else:
+                print("Molecular weight out of range (100-1500):", std_smiles, mw)
+        #if i > 10000:
+        #    break
+
+ik2smi_neg = {}
+for smi, ik in zip(neg_smiles_list, neg_inchikey_list):
+    ik2smi_neg[ik] = smi
+
+with open(os.path.join(root, "..", "results", "00_background.csv"), "w") as f:
+    writer = csv.writer(f)
+    writer.writerow(["smiles", "inchikey"])
+    for ik, smi in tqdm(ik2smi_neg.items(), desc="Writing background compounds"):
+        writer.writerow([smi, ik])

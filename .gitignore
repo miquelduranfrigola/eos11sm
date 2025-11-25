@@ -1,3 +1,9 @@
+# Manually added
+.DS_Store
+model/framework/fit/data/chembl_36_chemreps.txt
+model/framework/fit/results/00_background.csv
+model/framework/fit/results/02_background_properties.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

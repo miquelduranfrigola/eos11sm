@@ -2,3 +2,4 @@ python: "3.12"
 commands:
     - ["pip", "rdkit", "2025.9.1"]
     - ["pip", "fpsim2", "0.7.3"]
+    - ["pip", "scikit-learn", "1.7.2"]

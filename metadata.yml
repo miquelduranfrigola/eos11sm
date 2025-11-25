@@ -1,43 +1,34 @@
 Identifier: eos11sm
-Slug: similarity-to-antibioitics
+Slug: known-antibiotic-ressemblance
 Status: In progress
-Title: Similarity to known antibiotics
-Description: This model uses a curated list of known antibiotics from AntibioticDB
-  as well as a list provided by the Collins lab to identify compounds that ressemble
+Title:  Ressemblance to a curated list of known antibiotics
+Description: A curated list of about 600 known antibiotics from AntibioticDB
+  and the Collins lab (MIT) is used as a reference to identify compounds that ressemble
   known antibiotics. The tool can be used, for example, to remove unattractive compounds
-  in virtual screening
+  in virtual screening. The ressemblance score is computed using a logistic regression
+  taking into account Tanimoto similarity over multiple molecular fingerprints.
 Deployment:
 - Local
-- Online
-Source: Local, Online
-Source Type: Internal, Replicated, External
-Task: Annotation, Representation, Sampling
-Subtask: Property calculation or prediction, Activity prediction, Featurization, Projection,
-  Similarity search, Generation
+Source: Local
+Source Type: Internal
+Task: Annotation
+Subtask: Activity prediction
 Input:
 - Compound
 Input Dimension: 1
 Output:
-- Value
 - Score
-- Compound
-- Probability
-- Experimental value
-- '...'
 Output Dimension: 1
-Output Consistency: Fixed, Variable
-Interpretation: 'The output of this template model should be interpreted like this.
-
-  '
+Output Consistency: Fixed
+Interpretation: 'A score of 1 indicates high ressemblance to known antibiotics,
+  while a score of 0 indicates low ressemblance.'
 Tag:
 - Antimicrobial activity
 Biomedical Area:
-- Biomedical Area 1
-- Biomedical Area 2
+- Antimicrobial Resistance
 Target Organism:
-- Target Organism 1
-- Target Organism 2
-Publication Type: Peer reviewed, Preprint, Other
+- Any
+Publication Type: Other
 Publication Year: 2025
 Publication: https://antibioticdb.com
 Source Code: https://github.com/ersilia-os/ersilia
